@@ -27,3 +27,15 @@ def download_dataset_wb(run, artifact_name):
     raw_artifact = run.use_artifact(artifact_name)
     dataset = raw_artifact.download()
     return dataset
+
+def save_model_artifact(model, name, config):
+    model_artifact = wandb.Artifact(
+        name=name,
+        type="model",
+        metadata=dict(config),
+        description="ResNet50 trained on cifar10 dataset",
+    )
+    model.save("resnet50.keras")
+    model_artifact.add_file("resnet50.keras")
+    wandb.save("resnet50.keras")
+    return model_artifact
