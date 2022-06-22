@@ -1,0 +1,2 @@
+wandb==0.12.18
+tensorflow==2.9.1
