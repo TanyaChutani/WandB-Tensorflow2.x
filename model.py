@@ -53,3 +53,23 @@ class Classification(tf.keras.models.Model):
     @classmethod
     def from_config(cls, config):
         return cls(**config)
+
+    
+ def get_model(config):
+    base_model = tf.keras.applications.ResNet50(
+        include_top=False,
+        weights="imagenet",
+        input_shape=((config.dim, config.dim, 3)),
+        pooling="max",
+        classes=config.num_classes,
+    )
+    x = base_model.output
+    outputs = tf.keras.layers.Dense(config.num_classes)(x)
+    model = tf.keras.Model(base_model.input, outputs)
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(config.learning_rate),
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+        metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
+    )
+
+    return model
