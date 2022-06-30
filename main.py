@@ -1,4 +1,14 @@
 import os
+import argparse
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-learning_rate", "--learning_rate", type=float, metavar="", default= 0.0001)
+
+    parser.add_argument("-b", "--batch_size", type=int, metavar="", default=24)
+    args = parser.parse_args()
+    return args
+
 
 
 def train(
