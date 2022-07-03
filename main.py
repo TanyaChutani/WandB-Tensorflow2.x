@@ -3,12 +3,12 @@ import argparse
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-learning_rate", "--learning_rate", type=float, metavar="", default= 0.0001)
-
-    parser.add_argument("-b", "--batch_size", type=int, metavar="", default=24)
+    parser.add_argument("-learning_rate", "--learning_rate", type=float, default=0.0001)
+    parser.add_argument("-b", "--batch_size", type=int, default=24)
+    parser.add_argument("-b", "--epoch", type=int, default=2)
+    parser.add_argument("-b", "--image_size", type=int, default=32)
     args = parser.parse_args()
     return args
-
 
 
 def train(
@@ -68,5 +68,9 @@ def train(
         model_artifact = save_model_artifact(model, "resnet50_model", config)
         run.log_artifact(model_artifact)
 
-
-train()
+def main():
+    args = parse_args()
+    train()
+    
+if __name__ == "__main__":
+    main()
