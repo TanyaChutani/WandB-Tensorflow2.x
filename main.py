@@ -50,7 +50,7 @@ def train(
         model.compile(
             optimizer=tf.keras.optimizers.Adam(config.learning_rate),
             loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-            metric=[tf.keras.metrics.SparseCategoricalAccuracy()],
+            metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
         )
 
         model.fit(
